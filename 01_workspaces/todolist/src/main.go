@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 )
 
 var tasks []Task
@@ -29,7 +31,15 @@ func loadTasks () {
 	}
 }
 
+func addNewTask (name string){
+	newTask := Task{Name: name, Done: false}
+	tasks = append(tasks, newTask)
+	fmt.Println("Added new task successfully!")
+}
+
 func main () {
+	var scanner = bufio.NewScanner(os.Stdin)
+
 	divider()
 
 	fmt.Println("Welcome to Todolist!")
@@ -49,7 +59,8 @@ func main () {
 		divider()
 		
 		var action string
-
+		
+		fmt.Print("Insert an action number: ")
 		fmt.Scanln(&action)
 
 		divider()
@@ -59,7 +70,13 @@ func main () {
 			fmt.Println("Goodbye!")
 			return
 		case "1":
-			fmt.Println("Add a new task - This will be implemented soon")
+			fmt.Println("Add a new task")
+
+			var task string
+			fmt.Print("Insert the task description/name: ")
+			scanner.Scan()
+			task = scanner.Text()
+			addNewTask(task)
 		case "2":
 			fmt.Println("Set a task as done - This will be implemented soon")
 		default:
